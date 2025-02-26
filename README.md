@@ -2,6 +2,7 @@
 
 An AI-powered chatbot that lets you chat with your own PDF documents using Retrieval-Augmented Generation (RAG).
 
+
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Streamlit App](https://img.shields.io/badge/Streamlit-App-blueviolet)](https://www.streamlit.io/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Backend-blue)](https://fastapi.tiangolo.com/)
@@ -70,7 +71,7 @@ This project implements a local question-answering system for PDF documents. Sim
 1.  **Start the FastAPI backend:**
 
     ```bash
-    uvicorn rag_backend:app --reload --host 0.0.0.0 --port 8000
+    uvicorn backend_chatdoc:app --reload --host 0.0.0.0 --port 8000
     ```
 
     (The `--reload` flag will automatically restart the server when you make changes).
@@ -78,7 +79,7 @@ This project implements a local question-answering system for PDF documents. Sim
 2.  **Start the Streamlit frontend (in a separate terminal):**
 
     ```bash
-    streamlit run rag_frontend.py
+    streamlit run frontend_chatdoc.py
     ```
 
 3.  **Access the application:** Open your web browser and go to the address shown by Streamlit (usually `http://localhost:8501`).
