@@ -40,7 +40,7 @@ This project implements a local question-answering system for PDF documents. Sim
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/Chat-with-Your-Documents.git
+    git clone https://github.com/devcom33/Chat-with-Your-Documents.git
     cd Chat-with-Your-Documents
     ```
 
@@ -64,7 +64,7 @@ This project implements a local question-answering system for PDF documents. Sim
     *   **Option 1 (Recommended):** Set the `TOGETHER_API_KEY` environment variable.
         *   Linux/macOS: `export TOGETHER_API_KEY="YOUR_API_KEY"`
         *   Windows: `set TOGETHER_API_KEY=YOUR_API_KEY`
-    *   **Option 2 (Not Recommended):**  You can hardcode the API key directly into `rag_backend.py`, but this is *not* recommended for security reasons.
+    *   **Option 2 (Not Recommended):**  You can hardcode the API key directly into `backend_chatdoc.py`, but this is *not* recommended for security reasons.
 
 ## Running the Application
 
@@ -94,7 +94,7 @@ This project implements a local question-answering system for PDF documents. Sim
 
 *   **Modify the Prompt:**  You can customize the prompt used for the language model in the `query` function of `backend_chatdoc.py`.  Experiment with different prompts to improve the quality of the answers.
 *   **Change the Embedding Model:** You can experiment with different sentence transformer models by changing the `model_name` in the `HuggingFaceEmbeddings` initialization.
-*   **Adjust Chunk Size:**  The `chunk_size` parameter in the `CharacterTextSplitter` controls how the document is spli into chunks.  Adjust this value to optimize performance and accuracy.
+*   **Adjust Chunk Size:**  The `chunk_size` parameter in the `CharacterTextSplitter` controls how the docment is spli into chunks.  Adjust this value to optimize performance and accuracy.
 *   **Switch LLM Provider:**  With some code modifications, you could use a different language model provider instead of Together AI.
 
 ## Contributing
@@ -110,3 +110,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 *   This project is inspired by the growing field of Retrieval-Augmented Generation.
 *   Thanks to the developers of Streamlit, FastAPI, Langchain, Hugging Face, Together AI, and FAISS for creating these amazing tools.t
+u
