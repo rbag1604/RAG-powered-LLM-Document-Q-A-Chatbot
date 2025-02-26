@@ -21,9 +21,6 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "http://localhost",    
-    "http://localhost:8000",
-    "*", # only for testing purposes
 ]
 
 app.add_middleware(
@@ -35,12 +32,11 @@ app.add_middleware(
 )
 # Constants
 VECTOR_STORE_PATH = "faiss_vector_store"
-UPLOAD_FOLDER = "uploaded_documents"  # Folder to store uploaded files
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Create upload folder if it doesn't exist
+UPLOAD_FOLDER = "uploaded_documents"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")  # Explicitly pass model_name
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
-# Load vector store on startup
 vector_store = None
 def load_vector_store():
     global vector_store
@@ -58,7 +54,7 @@ class QueryRequest(BaseModel):
     question: str
 
 def query(question: str):
-    global vector_store  # Access the global variable
+    global vector_store
     if vector_store is None:
         return {"answer": "Vector store is not initialized. Please upload a document."}
 
@@ -98,27 +94,22 @@ async def upload_document(file: UploadFile = File(...)):
     global vector_store  # Access the global variable
 
     try:
-        # Check if the uploaded file is a PDF
         if not file.filename.endswith(".pdf"):
             raise HTTPException(status_code=400, detail="Only PDF files are supported.")
 
-        # Save the uploaded file
         file_path = os.path.join(UPLOAD_FOLDER, file.filename)
         with open(file_path, "wb") as f:
             shutil.copyfileobj(file.file, f)
 
-        # Process the document
         texts = process_document(file_path)
 
-       # Update the vector store
-        new_vector_store = FAISS.from_texts(texts, embedding=embeddings) # Use the embeddings
+        new_vector_store = FAISS.from_texts(texts, embedding=embeddings)
         if vector_store is None:
             vector_store = new_vector_store
         else:
             vector_store.merge_from(new_vector_store) # Fixed merging
         vector_store.save_local(VECTOR_STORE_PATH) # Save updated store
         
-        # Check the size of the vector store
         if hasattr(vector_store, 'index') and hasattr(vector_store.index, 'ntotal'):
             index_size = vector_store.index.ntotal
             print(f"FAISS index Size: {index_size}")
@@ -135,12 +126,10 @@ async def upload_document(file: UploadFile = File(...)):
 
 
 
-# API endpoint
 @app.post("/query/")
 async def ask_question(request: QueryRequest):
     return query(request.question)
 
-# Run the FastAPI app
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000) 
