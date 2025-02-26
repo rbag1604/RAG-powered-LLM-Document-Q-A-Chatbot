@@ -92,7 +92,7 @@ This project implements a local question-answering system for PDF documents. Sim
 
 ## Customization
 
-*   **Modify the Prompt:**  You can customize the prompt used for the language model in the `query` function of `rag_backend.py`.  Experiment with different prompts to improve the quality of the answers.
+*   **Modify the Prompt:**  You can customize the prompt used for the language model in the `query` function of `backend_chatdoc.py`.  Experiment with different prompts to improve the quality of the answers.
 *   **Change the Embedding Model:** You can experiment with different sentence transformer models by changing the `model_name` in the `HuggingFaceEmbeddings` initialization.
 *   **Adjust Chunk Size:**  The `chunk_size` parameter in the `CharacterTextSplitter` controls how the document is spli into chunks.  Adjust this value to optimize performance and accuracy.
 *   **Switch LLM Provider:**  With some code modifications, you could use a different language model provider instead of Together AI.
@@ -105,9 +105,6 @@ Contributions are welcome! If you find a bug, have a feature request, or want to
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
-
-Your Name - [Your Email] - [Your Website/Portfolio (Optional)]
 
 ## Acknowledgments
 
