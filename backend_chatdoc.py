@@ -20,10 +20,10 @@ client = Together(api_key=TOGETHER_API_KEY)
 app = FastAPI()
 
 origins = [
-    "http://localhost:8501",  # Or the port your Streamlit app runs on, if different
-    "http://localhost",       # Add this line if you're not sure
+    "http://localhost:5173",
+    "http://localhost",    
     "http://localhost:8000",
-    "*", # only use for testing purposes in a secure env
+    "*", # only for testing purposes
 ]
 
 app.add_middleware(
@@ -41,9 +41,9 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Create upload folder if it doesn't 
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")  # Explicitly pass model_name
 
 # Load vector store on startup
-vector_store = None  # Initialize vector_store
+vector_store = None
 def load_vector_store():
-    global vector_store  # Access the global variable
+    global vector_store
     try:
         vector_store = FAISS.load_local(VECTOR_STORE_PATH, embeddings, allow_dangerous_deserialization=True)
         print("Vector store loaded successfully from disk.")
@@ -110,7 +110,7 @@ async def upload_document(file: UploadFile = File(...)):
         # Process the document
         texts = process_document(file_path)
 
-        # Update the vector store
+       # Update the vector store
         new_vector_store = FAISS.from_texts(texts, embedding=embeddings) # Use the embeddings
         if vector_store is None:
             vector_store = new_vector_store
@@ -143,4 +143,4 @@ async def ask_question(request: QueryRequest):
 # Run the FastAPI app
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000) 
