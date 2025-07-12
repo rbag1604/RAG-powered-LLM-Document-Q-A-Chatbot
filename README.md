@@ -45,11 +45,3 @@ This project provides a local solution for interacting with PDF documents using 
 *   [Node.js](https://nodejs.org/) and npm (Node Package Manager)
 *   Python 3.10 or higher
 *   (Optional) A [Together AI API key](https://www.together.ai/) (required for the chatbot to respond)
-
-## Setup and Installation
-
-**1. Clone the repository:**
-
-```bash
-git clone https://github.com/devcom33/Chat-with-Your-Documents.git
-cd Chat-with-Your-Documents
